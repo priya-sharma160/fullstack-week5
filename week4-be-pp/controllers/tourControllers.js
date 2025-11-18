@@ -8,7 +8,7 @@ const createTour = (req, res) => {
   const { name, info, image, price } = req.body;
   const newTour = Tour.addOne(name, info, image, price);
   if (newTour) {
-    res.json(newTour);
+    res.status(201).json(newTour);  // ← Changed: added .status(201)
   } else {
     res.status(500).json({ message: "Fail to create tour" });
   }
@@ -39,7 +39,7 @@ const deleteTour = (req, res) => {
   const tourId = req.params.tourId;
   const isDeleted = Tour.deleteOneById(tourId);
   if (isDeleted) {
-    res.json({ message: "Deleted successfully" });
+  res.status(204).send();  // ← Changed: added .status(204) and .send()
   } else {
     res.status(404).json({ message: "Tour not found" });
   }
